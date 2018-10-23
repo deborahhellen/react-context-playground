@@ -18,6 +18,26 @@ app.get("/currentUser", function(req, res) {
 	});
 });
 
+app.get("/cupcakeOrders", function(req, res) {
+	res.send(_generateCupcakeOrders());
+});
+
 app.listen(8000, function () {
   console.log('Listening on port 8000!');
 });
+
+// Helper funcs
+const _createCupcakeOrder = (userId, numCupcakes, isDelivery) => ({ userId, numCupcakes, isDelivery });
+
+const _generateCupcakeOrders = () => {
+	let orders = [];
+	
+	for (let i = 0; i <= 100; i++) {
+		const userId = Math.floor(Math.random() * Math.floor(10));
+		const numCupcakes = Math.floor(Math.random() * Math.floor(100)); 
+		const isDelivery = Math.random() >= 0.5;
+		
+		orders.push(_createCupcakeOrder(userId, numCupcakes, isDelivery));
+	}
+	return orders;
+}
